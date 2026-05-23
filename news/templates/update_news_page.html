@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Update News{% endblock title %}
+
+{% block content %}
+<section class="form-page">
+    <div class="page-card form-card">
+        <header class="page-heading">
+            <p class="eyebrow">Publish update</p>
+            <h1>Update news</h1>
+            <p>Edit the current story and save your changes.</p>
+        </header>
+        <form method="post" action="{% url 'update_news' pk=pk %}">
+            {% csrf_token %}
+            <div class="form-fields">
+                {{ form.as_p }}
+            </div>
+            <button class="button button-primary" type="submit">Save changes</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}F1 MotorSports{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/home_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<section class="hero-card">
+    <div class="hero-copy">
+        <p class="eyebrow">Official fan hub</p>
+        <h1>Welcome to the F1 MotorSports fan experience.</h1>
+        <p>Everything for F1 fans in one place: live coverage, news, articles and a premium interface.</p>
+        <div class="hero-actions">
+            <a class="button button-primary" href="{% url 'list_news_page' %}">Browse News</a>
+            {% if can_create_news %}
+            <a class="button button-secondary" href="{% url 'create_news_page' %}">Create News</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-panel">
+        <div class="metrics-card">
+            <h2>Featured Services</h2>
+            <ul>
+                <li>Live race broadcasts</li>
+                <li>F1 news coverage</li>
+                <li>Movies &amp; series</li>
+                <li>Articles and reviews</li>
+                <li>Official product store</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="page-block">
+    <h2>Quick links</h2>
+    <div class="links-grid">
+        <a class="info-card" href="{% url 'list_news_page' %}">
+            <h3>News board</h3>
+            <p>Latest F1 stories and updates.</p>
+        </a>
+        <a class="info-card" href="{% url 'list_articles_page' %}">
+            <h3>Articles</h3>
+            <p>Read analyses and fan reviews.</p>
+        </a>
+        <a class="info-card" href="{% url 'home_page' %}">
+            <h3>Products</h3>
+            <p>Visit the product store and listings.</p>
+        </a>
+        <a class="info-card" href="{% url 'home_page' %}">
+            <h3>Cinema</h3>
+            <p>Watch curated motorsport movies and series.</p>
+        </a>
+        {% if can_create_news %}
+        <a class="info-card" href="{% url 'create_news_page' %}">
+            <h3>Create news</h3>
+            <p>Share a new post with the community.</p>
+        </a>
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Account details | F1 MotorSports{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/account_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<section class="page-card profile-card">
+    <header class="page-heading">
+        <p class="eyebrow">Your profile</p>
+        <h1>Account details</h1>
+        <p>Manage your F1 MotorSports account information.</p>
+    </header>
+
+    <dl class="profile-list">
+        <div>
+            <dt>Username</dt>
+            <dd>{{ user.username }}</dd>
+        </div>
+        <div>
+            <dt>Email</dt>
+            <dd>{{ user.email }}</dd>
+        </div>
+        <div>
+            <dt>Date joined</dt>
+            <dd>{{ user.date_joined }}</dd>
+        </div>
+    </dl>
+</section>
+{% endblock content %}

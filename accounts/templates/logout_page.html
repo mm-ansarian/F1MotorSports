@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Logout | F1 MotorSports{% endblock title %}
+
+{% block content %}
+<section class="form-page">
+    <div class="page-card form-card form-card--centered">
+        <header class="page-heading">
+            <p class="eyebrow">Quick action</p>
+            <h1>Confirm logout</h1>
+            <p>Are you sure you want to sign out of your account?</p>
+        </header>
+
+        <form method="post" action="{% url 'logout_page' %}">
+            {% csrf_token %}
+            <button class="button button-primary" type="submit">Log out</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}

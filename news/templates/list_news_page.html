@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}News{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/list_news_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<section class="page-card news-list-page news-list-centered">
+    <header class="page-heading">
+        <p class="eyebrow">Latest stories</p>
+        <h1>{{ page_title|default:'News' }}</h1>
+        <p>Explore the latest updates from the F1 world.</p>
+        {% if request.user.is_superuser or request.user.is_staff %}
+        <div class="page-actions">
+            <a class="button button-warning" href="{% url 'create_news_page' %}">Create new news</a>
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="news-items">
+        {% for the_news in news %}
+        <article class="news-card">
+            <a href="{% url 'retrieve_news_page' pk=the_news.id %}">
+                <h2>{{ the_news.title }}</h2>
+                <p>{{ the_news.content|truncatechars:120 }}</p>
+                <span class="read-more">Read full story</span>
+            </a>
+            {% if request.user.is_superuser or request.user.is_authenticated and request.user == the_news.author %}
+                <div class="article-actions">
+                    <a class="button button-warning" href="{% url 'update_news' pk=the_news.id %}">Update</a>
+                    <button type="button" class="button button-danger" data-delete-url="{% url 'delete_news' pk=the_news.id %}">Delete</button>
+                </div>
+            {% endif %}
+        </article>
+        {% empty %}
+        <p class="empty-state">No news found yet. Be the first to create one.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<div class="confirm-modal-backdrop" id="confirm-modal-backdrop" hidden>
+    <div class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-modal-title">
+        <p id="confirm-modal-title">Are you sure you want to delete this item?</p>
+        <div class="confirm-modal-actions">
+            <button type="button" class="button button-secondary" id="confirm-no">No</button>
+            <button type="submit" form="confirm-delete-form" class="button button-danger">Yes</button>
+        </div>
+        <form id="confirm-delete-form" method="post">
+            {% csrf_token %}
+        </form>
+    </div>
+</div>
+
+<script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const backdrop = document.getElementById('confirm-modal-backdrop');
+                const form = document.getElementById('confirm-delete-form');
+                const noButton = document.getElementById('confirm-no');
+
+                document.querySelectorAll('[data-delete-url]').forEach(function (button) {
+                    button.addEventListener('click', function () {
+                        form.action = button.dataset.deleteUrl;
+                        backdrop.hidden = false;
+                    });
+                });
+
+                function closeModal() {
+                    backdrop.hidden = true;
+                }
+
+                noButton.addEventListener('click', closeModal);
+                backdrop.addEventListener('click', function (event) {
+                    if (event.target === backdrop) {
+                        closeModal();
+                    }
+                });
+            });
+        </script>
+    </section>
+{% endblock content %}

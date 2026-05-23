@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}My News{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/list_news_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<section class="page-card news-list-page news-list-centered">
+    <header class="page-heading">
+        <p class="eyebrow">Your contributions</p>
+        <h1>My News</h1>
+        <p>All the news stories you have written for F1 MotorSports.</p>
+    </header>
+
+    <div class="news-items">
+        {% for the_news in news %}
+        <article class="news-card">
+            <a href="{% url 'retrieve_news_page' pk=the_news.id %}">
+                <h2>{{ the_news.title }}</h2>
+                <p>{{ the_news.content|truncatechars:120 }}</p>
+                <span class="read-more">Read full story</span>
+            </a>
+        </article>
+        {% empty %}
+        <p class="empty-state">You have not created any news yet.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock content %}

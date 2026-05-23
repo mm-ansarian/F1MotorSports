@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Log in | F1 MotorSports{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/account_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<section class="form-page">
+    <div class="page-card form-card form-card--centered">
+        <header class="page-heading">
+            <h1>Log in</h1>
+            <p>Access your account and fan dashboard.</p>
+        </header>
+
+        <form method="post" action="{% url 'login_page' %}">
+            {% csrf_token %}
+            <div class="form-fields">
+                {{ form.as_p }}
+            </div>
+            <button class="button button-primary" type="submit">Log in</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}

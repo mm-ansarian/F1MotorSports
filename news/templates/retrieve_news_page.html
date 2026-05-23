@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ news.title }}{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/retrieve_news_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<section class="page-card article-page">
+    <header class="page-heading">
+        <h1>{{ news.title }}</h1>
+        <div class="article-meta">
+            <span>Created {{ news.created_at }}</span>
+            <span>Updated {{ news.updated_at }}</span>
+        </div>
+    </header>
+
+    {% if request.user.is_staff %}
+    <div class="article-author-card">
+        <span class="author-label">Author</span>
+        <h2>{{ news.author }}</h2>
+        <p class="author-note">This author info is visible only to staff.</p>
+    </div>
+    {% endif %}
+
+    <div class="article-body">
+        <p>{{ news.content }}</p>
+    </div>
+
+    {% if request.user.is_superuser or request.user.is_authenticated and request.user == news.author %}
+    <form method="post" action="{% url 'delete_news' pk=news.id %}" class="delete-form article-delete-form">
+        {% csrf_token %}
+        <button type="submit" class="button button-danger">Delete News</button>
+    </form>
+    {% endif %}
+</section>
+{% endblock content %}

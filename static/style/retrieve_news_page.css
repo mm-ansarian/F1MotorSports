@@ -1,0 +1,25 @@
+.article-page {
+    max-width: 980px;
+}
+
+.meta {
+    margin: 12px 0 0;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.98rem;
+}
+
+.article-body {
+    margin-top: 22px;
+    padding: 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 26px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.84);
+}
+
+.article-body p {
+    margin: 0;
+    white-space: pre-wrap;
+}
+

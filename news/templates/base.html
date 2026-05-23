@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}F1 MotorSports{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'style/base.css' %}">
+    {% block extra_css %}{% endblock extra_css %}
+</head>
+
+<body>
+    <div class="message-banner-container" id="message-banner-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message-banner message-banner--{{ message.tags }}">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="{% url 'home_page' %}">
+                <span class="brand-mark">F1</span>
+                <div class="brand-copy">
+                    <h1>F1 MotorSports</h1>
+                    <p>News, live coverage and fan experience for motorsport fans.</p>
+                </div>
+            </a>
+
+            <nav class="site-nav">
+                <a href="{% url 'home_page' %}">Home</a>
+                <div class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="{% url 'list_news_page' %}">News</a>
+                    {% if can_show_news_menu %}
+                    <div class="dropdown-menu">
+                        <a href="{% url 'create_news_page' %}">Create news</a>
+                        <a href="{% url 'my_news_page' %}">My news</a>
+                        <a href="{% url 'list_news_page' %}">All news</a>
+                    </div>
+                    {% endif %}
+                </div>
+                <a href="{% url 'home_page' %}">Lives</a>
+
+                <div class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="#">Other services</a>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'list_articles_page' %}">Articles</a>
+                        <a href="{% url 'home_page' %}">Products</a>
+                        <a href="{% url 'home_page' %}">Cinema</a>
+                    </div>
+                </div>
+
+                {% if request.user.is_authenticated %}
+                <div class="nav-item dropdown user-menu">
+                    <a class="user-button" href="{% url 'account_details_page' %}">{{ request.user.username }}</a>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'account_details_page' %}">Account</a>
+                        <a href="{% url 'logout_page' %}">Logout</a>
+                    </div>
+                </div>
+                {% else %}
+                    <a href="{% url 'login_page' %}">Log in</a>
+                    <a href="{% url 'signup_page' %}">Sign up</a>
+                {% endif %}
+            </nav>
+        </header>
+
+        <main class="content-area">
+            {% block content %}{% endblock content %}
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-grid">
+                <div class="footer-block footer-links">
+                    <p class="eyebrow">Quick access</p>
+                    <a href="{% url 'home_page' %}">Home</a>
+                    <a href="{% url 'list_news_page' %}">News board</a>
+                    <a href="{% url 'list_articles_page' %}">Articles</a>
+                    <a href="{% url 'home_page' %}">Products</a>
+                    <a href="{% url 'home_page' %}">Cinema</a>
+                    <a href="{% url 'signup_page' %}">Create account</a>
+                </div>
+                <div class="footer-block footer-about">
+                    <p class="eyebrow">About F1 MotorSports</p>
+                    <p>F1 MotorSports delivers polished motorsport news, live updates and community features for fans who want a fast, clean and modern racing experience.</p>
+                </div>
+            </div>
+            <p class="footer-copy">© {% now "Y" %} F1 MotorSports. Designed for fans, by fans.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const banner = document.getElementById('message-banner-container');
+            if (!banner) return;
+            const children = Array.from(banner.children);
+            if (children.length === 0) return;
+            children.forEach((item) => {
+                setTimeout(() => {
+                    item.classList.add('message-banner--hide');
+                }, 4200);
+                item.addEventListener('click', () => {
+                    item.classList.add('message-banner--hide');
+                });
+                item.addEventListener('transitionend', () => {
+                    if (item.classList.contains('message-banner--hide')) {
+                        item.remove();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

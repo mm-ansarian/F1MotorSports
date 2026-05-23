@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Create News{% endblock title %}
+
+{% block content %}
+<section class="form-page">
+    <div class="page-card form-card">
+        <header class="page-heading">
+            <p class="eyebrow">Publish update</p>
+            <h1>Create news</h1>
+            <p>Write a new story and publish it to the F1 community.</p>
+        </header>
+
+        <form method="post" action="{% url 'create_news_page' %}">
+            {% csrf_token %}
+            <div class="form-fields">
+                {{ form.as_p }}
+            </div>
+            <button class="button button-primary" type="submit">Publish news</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}

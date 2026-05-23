@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Sign up | F1 MotorSports{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'style/account_page.css' %}">
+{% endblock extra_css %}
+
+{% block content %}
+<section class="form-page">
+    <div class="page-card form-card form-card--centered">
+        <header class="page-heading">
+            <h1>Sign up</h1>
+            <p>Join our F1 community to get the latest news and features.</p>
+        </header>
+
+        <form method="post" action="{% url 'signup_page' %}">
+            {% csrf_token %}
+            <div class="form-fields">
+                {{ form.as_p }}
+            </div>
+            <button class="button button-primary" type="submit">Sign up</button>
+        </form>
+    </div>
+</section>
+{% endblock content %}
