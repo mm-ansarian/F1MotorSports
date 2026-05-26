@@ -45,10 +45,10 @@ class RetrieveArticleView(View):
 class UpdateArticleView(PermissionRequiredMixin, LoginRequiredMixin, View):
     permission_required = ('articles.change_article')
 
-    def get(self, request):
+    def get(self, request, pk):
         ...
 
-    def post(self, request):
+    def post(self, request, pk):
         ...
 
 

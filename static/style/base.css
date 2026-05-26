@@ -61,6 +61,7 @@ a {
     color: var(--orange);
         justify-content: center;
         margin-top: 18px;
+    font-size: 19px;
 }
 
 a:hover {
