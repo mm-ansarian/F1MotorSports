@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}F1 MotorSports{% endblock title %}</title>
+    <link rel="icon" type="image.png" href="{% static 'pictures/favicon.png' %}">
     <link rel="stylesheet" href="{% static 'style/base.css' %}">
     {% block extra_css %}{% endblock extra_css %}
 </head>
@@ -24,11 +25,7 @@
     <div class="page-shell">
         <header class="site-header">
             <a class="brand" href="{% url 'home_page' %}">
-                <span class="brand-mark">F1</span>
-                <div class="brand-copy">
-                    <h1>F1 MotorSports</h1>
-                    <p>News, live coverage and fan experience for motorsport fans.</p>
-                </div>
+                <img src="{% static 'pictures/logo.png' %}" alt="F1 MotorSports Logo" class="brand-logo">
             </a>
 
             <nav class="site-nav">
